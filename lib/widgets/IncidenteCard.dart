@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../models/Incidente.dart';
 
-IconData iconeDaSeveridade(String severidade) {
+IconData iconeDaSeveridade(Severidade severidade) {
   switch (severidade) {
-    case 'Crítico':
+    case Severidade.critico:
       return Icons.report;
-    case 'Alto':
+    case Severidade.alto:
       return Icons.warning;
-    case 'Médio':
+    case Severidade.medio:
       return Icons.info;
-    default:
+    case Severidade.baixo:
       return Icons.low_priority;
   }
 }

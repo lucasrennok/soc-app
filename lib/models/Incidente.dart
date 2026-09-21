@@ -1,10 +1,12 @@
+enum Severidade { critico, alto, medio, baixo }
+enum Status { aberto, emAndamento, resolvido }
 
 class Incidente {
   final String id;
   final String titulo;
   final String tipo;
-  final String severidade;
-  final String status;
+  final Severidade severidade;
+  final Status status;
   final DateTime abertoEm;
   final String? responsavel;
 
