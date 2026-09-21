@@ -15,6 +15,54 @@ IconData iconeDaSeveridade(Severidade severidade) {
   }
 }
 
+Color corDaSeveridade(Severidade severidade) {
+  switch (severidade) {
+    case Severidade.critico:
+      return Colors.red;
+    case Severidade.alto:
+      return Colors.orange;
+    case Severidade.medio:
+      return Colors.amber;
+    case Severidade.baixo:
+      return Colors.blue;
+  }
+}
+
+String textoDaSeveridade(Severidade severidade) {
+  switch (severidade) {
+    case Severidade.critico:
+      return 'Crítico';
+    case Severidade.alto:
+      return 'Alto';
+    case Severidade.medio:
+      return 'Médio';
+    case Severidade.baixo:
+      return 'Baixo';
+  }
+}
+
+String textoDoStatus(Status status) {
+  switch (status) {
+    case Status.aberto:
+      return 'Aberto';
+    case Status.emAndamento:
+      return 'Em andamento';
+    case Status.resolvido:
+      return 'Resolvido';
+  }
+}
+
+Color corDoStatus(Status status) {
+  switch (status) {
+    case Status.aberto:
+      return Colors.red;
+    case Status.emAndamento:
+      return Colors.amber;
+    case Status.resolvido:
+      return Colors.green;
+  }
+}
+
 class IncidenteCard extends StatelessWidget {
   final Incidente incidente;
 
