@@ -70,6 +70,11 @@ class IncidenteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final corSev = corDaSeveridade(incidente.severidade);
+    final tituloSev = textoDaSeveridade(incidente.severidade);
+    final textoStat = textoDoStatus(incidente.status);
+    final corStat = corDoStatus(incidente.status);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -78,22 +83,58 @@ class IncidenteCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(iconeDaSeveridade(incidente.severidade)),
+                Chip(
+                    label: Text(
+                        tituloSev,
+                        style: TextStyle(
+                        color: corSev,
+                        fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    backgroundColor: corSev.withOpacity(0.15),
+                    side: BorderSide(
+                        color: corSev,
+                    ),
+                ),
+                Spacer(),
+                Text(incidente.abertoHa),
                 const SizedBox(width: 8),
-                Text(incidente.titulo),
               ],
             ),
             const SizedBox(height: 4),
-            Text('#${incidente.id} · ${incidente.tipo}'),
-            const SizedBox(height: 4),
-            Text('Severidade: ${incidente.severidade}'),
-            Text('Status: ${incidente.status}'),
-            const SizedBox(height: 8),
+            Row(
+                children: [
+                    Icon(iconeDaSeveridade(incidente.severidade), color: corSev),
+                    Text(' ${incidente.titulo}', style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: corSev,
+                        ),
+                    ),
+                ],
+            ),
+            Row(
+                children: [
+                    Text('#${incidente.id} · ${incidente.tipo}', style: TextStyle(color: Colors.grey)),
+                ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Chip(
+                    label: Text(
+                        textoStat,
+                        style: TextStyle(
+                            color: corStat,
+                        ),
+                    ),
+                    backgroundColor: Colors.grey.withOpacity(0.20),
+                    side: BorderSide(
+                        color: Colors.grey,
+                    ),
+                ),
+                Spacer(),
                 Text(incidente.responsavel ?? 'Sem responsável'),
-                Text(incidente.abertoHa),
+                const SizedBox(width: 8),
               ],
             ),
           ],
