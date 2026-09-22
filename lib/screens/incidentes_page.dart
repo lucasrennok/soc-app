@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/IncidenteCard.dart';
-import '../models/Incidente.dart';
+import '../widgets/incidente_card.dart';
+import '../models/incidente.dart';
 
 final agora = DateTime.now();
 

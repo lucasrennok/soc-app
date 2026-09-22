@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/Incidente.dart';
+import '../models/incidente.dart';
 
 IconData iconeDaSeveridade(Severidade severidade) {
   switch (severidade) {
@@ -91,7 +91,7 @@ class IncidenteCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         ),
                     ),
-                    backgroundColor: corSev.withOpacity(0.15),
+                    backgroundColor: corSev.withValues(alpha: 0.15),
                     side: BorderSide(
                         color: corSev,
                     ),
@@ -127,7 +127,7 @@ class IncidenteCard extends StatelessWidget {
                             color: corStat,
                         ),
                     ),
-                    backgroundColor: Colors.grey.withOpacity(0.20),
+                    backgroundColor: Colors.grey.withValues(alpha: 0.15),
                     side: BorderSide(
                         color: Colors.grey,
                     ),
