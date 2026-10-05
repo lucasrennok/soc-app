@@ -16,7 +16,7 @@ enum StatusIncidente {
       case StatusIncidente.emAndamento:
         return StatusIncidente.resolvido;
       case StatusIncidente.resolvido:
-        return StatusIncidente.resolvido;
+        return StatusIncidente.aberto;
     }
   }
 }
