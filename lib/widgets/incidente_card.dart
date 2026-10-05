@@ -76,8 +76,8 @@ class _IncidenteCardState extends State<IncidenteCard> {
 
   @override
   Widget build(BuildContext context) {
-    final corSeveridade = corDaSeveridade(widget.incidente.severidade);
-    final corStatus = corDoStatus(widget.incidente.status);
+  final corSeveridade = corDaSeveridade(widget.incidente.severidade);
+  final corStatus = corDoStatus(status);
 
     return Card(
       child: Padding(
@@ -127,7 +127,7 @@ class _IncidenteCardState extends State<IncidenteCard> {
               children: [
                 Chip(
                   label: Text(
-                    textoDoStatus(widget.incidente.status),
+                    textoDoStatus(status),
                     style: TextStyle(
                       color: corStatus,
                       fontWeight: FontWeight.bold,
@@ -137,6 +137,15 @@ class _IncidenteCardState extends State<IncidenteCard> {
                 ),
                 Text(widget.incidente.responsavel ?? 'Sem responsável'),
               ],
+            ),
+              ElevatedButton(
+              onPressed: (){
+                setState(() {
+                  status = status.proximo;  
+                  print(status);
+                });
+              }, 
+              child: Text("Avançar etapa"),
             ),
           ],
         ),
