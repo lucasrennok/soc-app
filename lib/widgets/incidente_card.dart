@@ -75,6 +75,13 @@ class _IncidenteCardState extends State<IncidenteCard> {
   StatusIncidente status = StatusIncidente.aberto;
 
   @override
+  void initState() {
+    super.initState();
+
+    status = widget.incidente.status;
+  }
+
+  @override
   Widget build(BuildContext context) {
   final corSeveridade = corDaSeveridade(widget.incidente.severidade);
   final corStatus = corDoStatus(status);
@@ -144,7 +151,7 @@ class _IncidenteCardState extends State<IncidenteCard> {
                   status = status.proximo;
                 });
               }, 
-              child: Text("Avançar etapa"),
+              child: Text("Avançar status"),
             ),
           ],
         ),
