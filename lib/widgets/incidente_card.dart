@@ -141,8 +141,7 @@ class _IncidenteCardState extends State<IncidenteCard> {
               ElevatedButton(
               onPressed: (){
                 setState(() {
-                  status = status.proximo;  
-                  print(status);
+                  status = status.proximo;
                 });
               }, 
               child: Text("Avançar etapa"),
