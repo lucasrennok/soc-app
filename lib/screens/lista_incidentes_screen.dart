@@ -90,33 +90,80 @@ class ListaIncidentesScreen extends StatefulWidget {
 }
 
 class _ListaIncidentesScreenState extends State<ListaIncidentesScreen> {
+  StatusIncidente? filtro;
+
   @override
   Widget build(BuildContext context) {
+    final visiveis = incidentes
+        .where((incidente) => filtro == null || incidente.status == filtro)
+        .toList();
+
     return Scaffold(
       appBar: AppBar(title: const Text('Incidentes')),
-      body: ListView(
-        padding: const EdgeInsets.all(12),
-        children: incidentes
-            .map(
-              (incidente) => GestureDetector(
-                onTap: () async {
-                  final resposta = await Navigator.push(
-                    context,
-                    MaterialPageRoute<StatusIncidente>(
-                      builder: (context) =>
-                          DetalheIncidenteScreen(incidente: incidente),
-                    ),
-                  );
-                  if (resposta != null) {
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+            child: Wrap(
+              spacing: 8,
+              children: [
+                ChoiceChip(
+                  label: const Text('Todos'),
+                  selected: filtro == null,
+                  onSelected: (_) {
                     setState(() {
-                      incidente.status = resposta;
+                      filtro = null;
                     });
-                  }
-                },
-                child: IncidenteCard(incidente: incidente),
-              ),
-            )
-            .toList(),
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text('Em andamento'),
+                  selected: filtro == StatusIncidente.emAndamento,
+                  onSelected: (_) {
+                    setState(() {
+                      filtro = StatusIncidente.emAndamento;
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text('Resolvidos'),
+                  selected: filtro == StatusIncidente.resolvido,
+                  onSelected: (_) {
+                    setState(() {
+                      filtro = StatusIncidente.resolvido;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(12),
+              children: visiveis
+                  .map(
+                    (incidente) => GestureDetector(
+                      onTap: () async {
+                        final resposta = await Navigator.push(
+                          context,
+                          MaterialPageRoute<StatusIncidente>(
+                            builder: (context) =>
+                                DetalheIncidenteScreen(incidente: incidente),
+                          ),
+                        );
+                        if (resposta != null) {
+                          setState(() {
+                            incidente.status = resposta;
+                          });
+                        }
+                      },
+                      child: IncidenteCard(incidente: incidente),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
