@@ -71,23 +71,15 @@ class SeveridadeChip extends StatelessWidget {
   }
 }
 
-class IncidenteCard extends StatefulWidget {
+class IncidenteCard extends StatelessWidget {
   final Incidente incidente;
 
   const IncidenteCard({super.key, required this.incidente});
 
   @override
-  State<IncidenteCard> createState() => _IncidenteCardState();
-}
-
-class _IncidenteCardState extends State<IncidenteCard> {
-  late StatusIncidente status = widget.incidente.status;
-
-  @override
   Widget build(BuildContext context) {
-    final incidente = widget.incidente;
     final corSeveridade = corDaSeveridade(incidente.severidade);
-    final corStatus = corDoStatus(status);
+    final corStatus = corDoStatus(incidente.status);
 
     return Card(
       child: Padding(
@@ -127,7 +119,7 @@ class _IncidenteCardState extends State<IncidenteCard> {
               children: [
                 Chip(
                   label: Text(
-                    status.texto,
+                    incidente.status.texto,
                     style: TextStyle(
                       color: corStatus,
                       fontWeight: FontWeight.bold,
@@ -137,15 +129,6 @@ class _IncidenteCardState extends State<IncidenteCard> {
                 ),
                 Text(incidente.responsavel ?? 'Sem responsável'),
               ],
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  status = status.proximo;
-                });
-              },
-              child: const Text('Avançar status'),
             ),
           ],
         ),
