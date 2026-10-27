@@ -28,6 +28,8 @@ class Incidente {
   final StatusIncidente status;
   final DateTime abertoEm;
   final String? responsavel;
+  final String descricao;
+  final String? ipRelacionado;
 
   const Incidente({
     required this.id,
@@ -37,6 +39,8 @@ class Incidente {
     required this.status,
     required this.abertoEm,
     this.responsavel,
+    required this.descricao,
+    this.ipRelacionado,
   });
 
   String get abertoHa {
