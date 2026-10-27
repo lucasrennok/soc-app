@@ -51,6 +51,26 @@ Color corDoStatus(StatusIncidente status) {
   }
 }
 
+class SeveridadeChip extends StatelessWidget {
+  final Severidade severidade;
+
+  const SeveridadeChip({super.key, required this.severidade});
+
+  @override
+  Widget build(BuildContext context) {
+    final cor = corDaSeveridade(severidade);
+
+    return Chip(
+      label: Text(
+        textoDaSeveridade(severidade),
+        style: TextStyle(color: cor, fontWeight: FontWeight.bold),
+      ),
+      backgroundColor: cor.withValues(alpha: 0.14),
+      side: BorderSide(color: cor),
+    );
+  }
+}
+
 class IncidenteCard extends StatefulWidget {
   final Incidente incidente;
 
@@ -78,17 +98,7 @@ class _IncidenteCardState extends State<IncidenteCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Chip(
-                  label: Text(
-                    textoDaSeveridade(incidente.severidade),
-                    style: TextStyle(
-                      color: corSeveridade,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: corSeveridade.withValues(alpha: 0.14),
-                  side: BorderSide(color: corSeveridade),
-                ),
+                SeveridadeChip(severidade: incidente.severidade),
                 Text(
                   incidente.abertoHa,
                   style: TextStyle(color: Colors.grey.shade600),
