@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/incidente.dart';
 import '../widgets/incidente_card.dart';
+import 'detalhe_incidente_screen.dart';
 
 final agora = DateTime.now();
 final List<Incidente> incidentes = [
@@ -81,9 +82,14 @@ final List<Incidente> incidentes = [
   ),
 ];
 
-class ListaIncidentesScreen extends StatelessWidget {
+class ListaIncidentesScreen extends StatefulWidget {
   const ListaIncidentesScreen({super.key});
 
+  @override
+  State<ListaIncidentesScreen> createState() => _ListaIncidentesScreenState();
+}
+
+class _ListaIncidentesScreenState extends State<ListaIncidentesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +97,25 @@ class ListaIncidentesScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: incidentes
-            .map((incidente) => IncidenteCard(incidente: incidente))
+            .map(
+              (incidente) => GestureDetector(
+                onTap: () async {
+                  final resposta = await Navigator.push(
+                    context,
+                    MaterialPageRoute<StatusIncidente>(
+                      builder: (context) =>
+                          DetalheIncidenteScreen(incidente: incidente),
+                    ),
+                  );
+                  if (resposta != null) {
+                    setState(() {
+                      incidente.status = resposta;
+                    });
+                  }
+                },
+                child: IncidenteCard(incidente: incidente),
+              ),
+            )
             .toList(),
       ),
     );
